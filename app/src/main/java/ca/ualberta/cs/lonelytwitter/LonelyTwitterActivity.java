@@ -28,10 +28,22 @@ public class LonelyTwitterActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
+        ArrayList<Tweet> tweetList = new ArrayList<Tweet>();
+
 		ImportantTweet importantTweet = new ImportantTweet("");
 		Tweet importantTweet2 = new ImportantTweet("");
+        Tweetable importantTweet3 = new ImportantTweet("");
+
+        /*
+        try {
+            importantTweet2.setText("");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        */
 
         importantTweet.getText();
+        importantTweet3.getText();
 
 
 		super.onCreate(savedInstanceState);

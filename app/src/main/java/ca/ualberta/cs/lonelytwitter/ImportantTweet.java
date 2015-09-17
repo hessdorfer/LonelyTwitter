@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by victoria on 2015-09-16.
  */
-public class ImportantTweet extends Tweet {
+public class ImportantTweet extends Tweet implements Tweetable {
 
     // we get the attributes and getter/setter methods for free
     // not the constructors
