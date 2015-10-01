@@ -30,8 +30,7 @@ public class LonelyTwitterActivity extends Activity {
 	private EditText bodyText;
 	private ListView oldTweetsList;
     private ArrayAdapter<Tweet> adapter;
-    private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
-
+	private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 
     /** Called when the activity is first created. */
 	@Override
@@ -107,5 +106,6 @@ public class LonelyTwitterActivity extends Activity {
     public void clearTweets(View v){
         tweets.clear();
         saveInFile();
+        adapter.notifyDataSetChanged();
     }
 }
