@@ -4,7 +4,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import java.util.ArrayList;
 
 
-public class TweetListTest extends ActivityInstrumentationTestCase2 {
+public class TweetListTest extends ActivityInstrumentationTestCase2 implements MyObserver {
 
     public TweetListTest(){
         super(LonelyTwitterActivity.class);
@@ -56,6 +56,33 @@ public class TweetListTest extends ActivityInstrumentationTestCase2 {
         ArrayList<Tweet> t = tweetList.getTweets();
 
         assertTrue(tweetList.hasTweet(tweet));
+    }
+
+    private ArrayList<MyObservable> observables = new ArrayList<MyObservable>();
+    private boolean wasNotified = false;
+    public void addObservable(MyObservable myObservable){
+
+
+    }
+
+    public void testTweetListChanged(){
+        TweetList tweetList = new TweetList();
+        Tweet tweet = new NormalTweet("hi");
+
+        tweetList.addObserver(this);
+        wasNotified = false;
+
+        assertFalse(wasNotified);
+
+        //
+        tweetList.add(tweet);
+        assertTrue(wasNotified);
+
+    }
+
+    public void myNotify(){
+        wasNotified = true;
+
     }
 
 
