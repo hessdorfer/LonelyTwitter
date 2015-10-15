@@ -21,13 +21,11 @@ public class LonelyTwitterActivityTest extends ActivityInstrumentationTestCase2 
         super(ca.ualberta.cs.lonelytwitter.LonelyTwitterActivity.class);
     }
 
-    /*
     public void testStart() throws Exception {
         Activity activity = getActivity();
 
     }
 
-    */
 
     public void testEditTweet(){
 
@@ -88,20 +86,22 @@ public class LonelyTwitterActivityTest extends ActivityInstrumentationTestCase2 
         getInstrumentation().waitForIdleSync();
 
 
+
         // Validate that ReceiverActivity is started
         //TouchUtils.clickView(this, sendToReceiverButton);
-        EditTweetActivity receiverActivity = (EditTweetActivity) receiverActivityMonitor.waitForActivityWithTimeout(1000);
+        final EditTweetActivity receiverActivity = (EditTweetActivity) receiverActivityMonitor.waitForActivityWithTimeout(1000);
 
         assertNotNull("ReceiverActivity is null", receiverActivity);
         assertEquals("Monitor for ReceiverActivity has not been called", 1, receiverActivityMonitor.getHits());
         assertEquals("Activity is of wrong type", EditTweetActivity.class, receiverActivity.getClass());
 
         // Remove the ActivityMonitor
-        getInstrumentation().removeMonitor(receiverActivityMonitor);
+        //getInstrumentation().removeMonitor(receiverActivityMonitor);
+
 
         // 1. test that the editor starts up w the correct tweet in the edit
 
-        // get tweet - don't know how yet??
+        // get tweet - don't know how yet?? 
 
         // check it's the right tweet
         final ListView oldTweetsList2  = activity.getOldTweetsList();
@@ -121,7 +121,6 @@ public class LonelyTwitterActivityTest extends ActivityInstrumentationTestCase2 
         getInstrumentation().waitForIdleSync();
 
 
-
         // 3. can push some kind of save button for that tweet
 
         saveButton = activity.getSaveButton();
@@ -133,7 +132,6 @@ public class LonelyTwitterActivityTest extends ActivityInstrumentationTestCase2 
         getInstrumentation().waitForIdleSync();
 
 
-
         // 4. new modified tweet text was actually saved
 
         final ListView oldTweetsList3  = activity.getOldTweetsList();
@@ -143,13 +141,10 @@ public class LonelyTwitterActivityTest extends ActivityInstrumentationTestCase2 
 
         // 5. new modified tweet text is displayed on the other activity
 
-        
 
 
         // clean up your activities at the end of a UI test or else it will hang!!
         receiverActivity.finish();
-
-
 
 
 
