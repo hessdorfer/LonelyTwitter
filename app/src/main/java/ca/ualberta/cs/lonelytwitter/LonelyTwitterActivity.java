@@ -14,8 +14,10 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,6 +32,21 @@ public class LonelyTwitterActivity extends Activity {
 	private EditText bodyText; // model
 	private ListView oldTweetsList; // model
     private ArrayAdapter<Tweet> adapter; //model
+	private Button saveButton;
+	private LonelyTwitterActivity activity = this;
+
+	public Button getSaveButton() {
+		return saveButton;
+	}
+
+	public ArrayList<Tweet> getTweets() {
+		return tweets;
+	}
+
+	public ListView getOldTweetsList() {
+		return oldTweetsList;
+	}
+
 	private ArrayList<Tweet> tweets = new ArrayList<Tweet>(); // model
 
     /** Called when the activity is first created. */
@@ -40,7 +57,7 @@ public class LonelyTwitterActivity extends Activity {
 		setContentView(R.layout.main); // view
 
 		bodyText = (EditText) findViewById(R.id.body);  // controller ???
-		Button saveButton = (Button) findViewById(R.id.save); // controller ??
+		saveButton = (Button) findViewById(R.id.save); // controller ??
 		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList); // controller?
 
 		saveButton.setOnClickListener(new View.OnClickListener() {
@@ -48,9 +65,20 @@ public class LonelyTwitterActivity extends Activity {
 			public void onClick(View v) {
 				setResult(RESULT_OK); // model
 				String text = bodyText.getText().toString(); // model
-                tweets.add(new NormalTweet(text)); // model
+				tweets.add(new NormalTweet(text)); // model
 				saveInFile(); // model
-                adapter.notifyDataSetChanged(); // view ??
+				adapter.notifyDataSetChanged(); // view ??
+			}
+		});
+
+		//this; // refers to activity instance
+
+
+		oldTweetsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				//this; // refers to on click instance
+				Intent intent = new Intent(activity, EditTweetActivity.class);
+				startActivity(intent);
 			}
 		});
 	}
@@ -100,9 +128,18 @@ public class LonelyTwitterActivity extends Activity {
 		}
 	}
 
+	private void editTweet(){
+
+
+	}
+
     public void clearTweets(View v){
         tweets.clear(); // controller
         saveInFile(); // model
         adapter.notifyDataSetChanged(); // view
     }
+
+	public EditText getBodyText() {
+		return bodyText;
+	}
 }
